@@ -2,7 +2,7 @@ Package: mlbplotR
 Type: Package
 Title: Create 'ggplot2' and 'gt' Visuals with Major League Baseball
         Logos
-Version: 1.0.1
+Version: 1.1.0
 Authors@R: 
     c(
     person(given = "Sebastian",
@@ -29,9 +29,9 @@ License: MIT + file LICENSE
 RoxygenNote: 7.2.3
 Depends: R (>= 3.5.0)
 NeedsCompilation: no
-Packaged: 2023-03-10 14:30:54 UTC; camdenkay
+Packaged: 2023-06-20 01:25:57 UTC; camdenkay
 Author: Sebastian Carl [aut],
   Camden Kay [aut, cre, cph]
 Maintainer: Camden Kay <camden.kay23@gmail.com>
 Repository: CRAN
-Date/Publication: 2023-03-13 13:40:02 UTC
+Date/Publication: 2023-06-20 04:20:02 UTC

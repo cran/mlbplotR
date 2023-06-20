@@ -20,17 +20,23 @@ load_mlb_teams <- function(){
 
 #' Output Valid MLB Team Abbreviations
 #'
+#' @param remove_league_info Should "AL", "NL", and "MLB" be removed from the returned vector? Defaults to `FALSE`.
 #'
 #' @return A vector of type `"character"`.
 #' @examples
 #' \donttest{
 #' # List valid team abbreviations excluding duplicates
 #' valid_team_names()
+#' valid_team_names(TRUE)
 #' }
 #'
 #' @export
-valid_team_names <- function(){
-  sort(names(logo_list))
+valid_team_names <- function(remove_league_info = FALSE){
+  if (isTRUE(remove_league_info)) {
+    sort(names(logo_list)[!names(logo_list) %in% c("AL", "NL", "MLB")])
+  } else {
+    sort(names(logo_list))
+  }
 }
 
 
