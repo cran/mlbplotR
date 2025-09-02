@@ -1,8 +1,20 @@
+# mlbplotR 1.2.0
+
+* Add `load_milb_teams()` with Minor League data (v1.1.0.9001)
+* Added ability to use dot headshots with `geom_mlb_dot_headshots()`, `gt_fmt_mlb_dot_headshot()`, and extra functionality within preexisting functions (v1.1.0.9002)
+* Update AZ logos and team colors (v1.1.0.9003)
+* Update `gt_*` functions to be used in gt row group labels and accept unquoted column names, add `gt_fmt_milb_logo()` (v1.1.0.9004)
+* Add `gt_` and `geom_` functions for MiLB dot team logos and headshots (v1.1.0.9005)
+* Documentation updates (v1.1.0.9006)
+* Added "ATH" -> "OAK" in `clean_team_abbrs()` (v1.1.0.9007)
+* Flipped "OAK" -> "ATH" in `clean_team_abbrs()` and had `gt_fmt_mlb_dot_logo` return the MLB dot logo if there's a mismatch (v1.1.0.9008)
+* Updated documentation. Rewrite `geom_mlb_headshots()` and `gt_fmt_mlb_headshot()` to use MLB headshots, not ESPN, which makes the parameter `na_headshot_to_logo` unnecessary. Deprecate `load_headshots()` (v1.1.0.9009)
+
 # mlbplotR 1.1.0
 
 * Corrected Arizona's team abbreviation in `mlb_team_factor()` (v1.0.1.9001)
 * Updated Twins logo, updated Brewers Scoreboard Logo, added more names to be cleaned (ANA to LAA and LA to LAD), added new dot logos and corresponding functions (`geom_mlb_dot_logos()`, `gt_fmt_mlb_dot_logo()`, and `element_mlb_dot_logo()`) (v1.0.1.9002)
-* Updated `valid_team_names()` to allow for truncated outputs without league level abbreviations (v1.0.1.9002)
+* Updated `valid_team_names()` to allow for truncated outputs without league level abbreviations (v1.0.1.9003)
 
 # mlbplotR 1.0.1
 

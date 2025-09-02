@@ -13,16 +13,16 @@
 #'   the default plot specification.
 #' @section Aesthetics:
 #' `geom_median_lines()` and `geom_mean_lines()` understand the following
-#' aesthetics (at least one of the bold aesthetics is required):
-#' \itemize{
-#'   \item{**v_var**}{ - The variable for which to compute the median/mean that is drawn as vertical line.}
-#'   \item{**h_var**}{ - The variable for which to compute the median/mean that is drawn as horizontal line.}
+#' aesthetics (at least one of `v_var` and `h_var` are required):
+#' \describe{
+#'   \item{`v_var`}{ - The variable for which to compute the median/mean that is drawn as vertical line.}
+#'   \item{`h_var`}{ - The variable for which to compute the median/mean that is drawn as horizontal line.}
 #'   \item{`alpha = NA`}{ - The alpha channel, i.e. transparency level, as a numerical value between 0 and 1.}
 #'   \item{`color = "black"`}{ - The color of the drawn lines.}
 #'   \item{`linetype = 2`}{ - The linetype of the drawn lines.}
 #'   \item{`linewidth = 0.5`}{ - The size of the drawn lines.}
 #' }
-#' @seealso The underlying ggplot2 geoms [`geom_hline()`] and [`geom_vline()`]
+#' @seealso The underlying ggplot2 geoms [`ggplot2::geom_hline()`] and [`ggplot2::geom_vline()`]
 #' @name geom_lines
 #' @return A ggplot2 layer ([ggplot2::layer()]) that can be added to a plot
 #'   created with [ggplot2::ggplot()].

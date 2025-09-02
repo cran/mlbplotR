@@ -1,6 +1,6 @@
 # INTERNAL HELPER THAT BUILDS THE GROBS FOR
 # GEOM LOGOS AND HEADSHOTS
-build_grobs <- function(i, alpha, colour, data, type = c("teams", "light_cap", "dark_cap", "scoreboard", "dot", "logo_headshots", "gray_headshots", "path")) {
+build_grobs <- function(i, alpha, colour, data, type = c("teams", "light_cap", "dark_cap", "scoreboard", "dot", "milb_logo", "milb_light_cap", "milb_dot", "transparent_dot_headshots", "dot_headshots", "milb_dot_headshots", "path")) {
   make_null <- FALSE
   type <- rlang::arg_match(type)
   if(type == "teams") {
@@ -22,22 +22,54 @@ build_grobs <- function(i, alpha, colour, data, type = c("teams", "light_cap", "
   } else if(type == "dot") {
     team_abbr <- data$team_abbr[i]
     image_to_read <- dot_logo_list[[team_abbr]]
+  } else if (type == "milb_logo") {
+    team_name <- data$team_name[i]
+    milb_map <- load_milb_teams()
+    image_to_read <- milb_map$team_logo[milb_map$team_name == team_name]
+  } else if (type == "milb_light_cap") {
+    team_name <- data$team_name[i]
+    milb_map <- load_milb_teams()
+    image_to_read <- milb_map$team_cap_logo_on_light[milb_map$team_name == team_name]
+  } else if (type == "milb_dot") {
+    team_name <- data$team_name[i]
+    milb_map <- load_milb_teams()
+    image_to_read <- milb_map$team_dot_logo[milb_map$team_name == team_name]
   } else if (type == "path"){
     image_to_read <- data$path[i]
-  } else if (type == "logo_headshots") {
+  } else if (type == "transparent_dot_headshots") {
     id <- data$player_id[i]
-    headshot_map <- load_headshots()
-    image_to_read <- headshot_map$espn_headshot[headshot_map$savant_id == id]
-    if(length(image_to_read) == 0 || is.na(image_to_read)){
-      image_to_read <- na_headshot(TRUE)
+    image_to_read <- paste0("https://midfield.mlbstatic.com/v1/people/", id, "/mlb/436?circle=true")
+
+    if (isFALSE(check_url(image_to_read))) {
+      image_to_read <- paste0("https://midfield.mlbstatic.com/v1/people/", id, "/spots/436")
     }
-  } else if (type == "gray_headshots") {
+
+  # } else if (type == "logo_headshots") {
+  #   id <- data$player_id[i]
+  #   headshot_map <- load_headshots()
+  #   image_to_read <- headshot_map$espn_headshot[headshot_map$savant_id == id]
+  #   if(length(image_to_read) == 0 || is.na(image_to_read)){
+  #     image_to_read <- na_headshot(TRUE)
+  #   }
+  # } else if (type == "gray_headshots") {
+  #   id <- data$player_id[i]
+  #   headshot_map <- load_headshots()
+  #   image_to_read <- headshot_map$espn_headshot[headshot_map$savant_id == id]
+  #   if(length(image_to_read) == 0 || is.na(image_to_read)){
+  #     image_to_read <- na_headshot(FALSE)
+  #   }
+  } else if (type == "dot_headshots") {
     id <- data$player_id[i]
-    headshot_map <- load_headshots()
-    image_to_read <- headshot_map$espn_headshot[headshot_map$savant_id == id]
-    if(length(image_to_read) == 0 || is.na(image_to_read)){
-      image_to_read <- na_headshot(FALSE)
-    }
+    image_to_read <- paste0("https://midfield.mlbstatic.com/v1/people/", id, "/spots/436")
+    # if(length(image_to_read) == 0 || is.na(image_to_read)){
+    #   image_to_read <- na_headshot(FALSE)
+    # }
+  } else if (type == "milb_dot_headshots") {
+    id <- data$player_id[i]
+    image_to_read <- paste0("https://midfield.mlbstatic.com/v1/people/", id, "/milb/436?circle=true")
+    # if(length(image_to_read) == 0 || is.na(image_to_read)){
+    #   image_to_read <- na_headshot(FALSE)
+    # }
   }
 
   if (is.na(make_null)){

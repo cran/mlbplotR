@@ -2,9 +2,37 @@
 % Please edit documentation in R/geom_mlb_headshots.R
 \name{geom_mlb_headshots}
 \alias{geom_mlb_headshots}
-\title{ggplot2 Layer for Visualizing MLB Player Headshots}
+\alias{geom_mlb_dot_headshots}
+\alias{geom_milb_dot_headshots}
+\title{ggplot2 Layer for Visualizing MLB/MiLB Player Headshots}
 \usage{
 geom_mlb_headshots(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  nudge_x = 0,
+  nudge_y = 0,
+  na.rm = FALSE,
+  show.legend = FALSE,
+  inherit.aes = TRUE
+)
+
+geom_mlb_dot_headshots(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  nudge_x = 0,
+  nudge_y = 0,
+  na.rm = FALSE,
+  show.legend = FALSE,
+  inherit.aes = TRUE
+)
+
+geom_milb_dot_headshots(
   mapping = NULL,
   data = NULL,
   stat = "identity",
@@ -38,15 +66,31 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{stat}{The statistical transformation to use on the data for this
-layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the
-stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
-\code{"stat_count"})}
+\item{stat}{The statistical transformation to use on the data for this layer.
+When using a \verb{geom_*()} function to construct a layer, the \code{stat}
+argument can be used the override the default coupling between geoms and
+stats. The \code{stat} argument accepts the following:
+\itemize{
+\item A \code{Stat} ggproto subclass, for example \code{StatCount}.
+\item A string naming the stat. To give the stat as a string, strip the
+function name of the \code{stat_} prefix. For example, to use \code{stat_count()},
+give the stat as \code{"count"}.
+\item For more information and other ways to specify the stat, see the
+\link[ggplot2:layer_stats]{layer stat} documentation.
+}}
 
-\item{position}{Position adjustment, either as a string naming the adjustment
-(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
-position adjustment function. Use the latter if you need to change the
-settings of the adjustment.}
+\item{position}{A position adjustment to use on the data for this layer. This
+can be used in various ways, including to prevent overplotting and
+improving the display. The \code{position} argument accepts the following:
+\itemize{
+\item The result of calling a position function, such as \code{position_jitter()}.
+This method allows for passing extra arguments to the position.
+\item A string naming the position adjustment. To give the position as a
+string, strip the function name of the \code{position_} prefix. For example,
+to use \code{position_jitter()}, give the position as \code{"jitter"}.
+\item For more information and other ways to specify the position, see the
+\link[ggplot2:layer_positions]{layer position} documentation.
+}}
 
 \item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{ggplot2::layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value. See the below
@@ -75,19 +119,17 @@ A ggplot2 layer (\code{\link[ggplot2:layer]{ggplot2::layer()}}) that can be adde
 created with \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.
 }
 \description{
-This geom is used to plot MLB player headshots instead
+This geom is used to plot MLB/MiLB player headshots instead
 of points in a ggplot. It requires x, y aesthetics as well as a valid MLBAM
 id (The same ID associated with their Baseball Savant page).
 }
 \section{Aesthetics}{
 
-\code{geom_mlb_headshots()} understands the following aesthetics (required aesthetics are in bold):
-\itemize{
-\item{\strong{x}}{ - The x-coordinate.}
-\item{\strong{y}}{ - The y-coordinate.}
-\item{\strong{player_id}}{ - The players' MLB (Baseball Savant) id.}
-\item{\code{na_headshot_to_logo = TRUE}}{ - Should NA/non-matches return the MLB logo
-instead of a grayed out blank headshot? Defaults to \code{TRUE}}
+\code{geom_mlb_headshots()}, \code{geom_mlb_dot_headshots()}, \code{geom_milb_dot_headshots()}, understand the following aesthetics:
+\describe{
+\item{\code{x}}{ - The x-coordinate. Required.}
+\item{\code{y}}{ - The y-coordinate. Required.}
+\item{\code{player_id}}{ - The players' MLBAM (Baseball Savant) id. Required.}
 \item{\code{alpha = NULL}}{ - The alpha channel, i.e. transparency level, as a numerical value between 0 and 1.}
 \item{\code{colour = NULL}}{ - The image will be colorized with this colour. Use the special character \code{"b/w"} to set it to black and white. For more information on valid colour names in ggplot2 see \url{https://ggplot2.tidyverse.org/articles/ggplot2-specs.html?q=colour#colour-and-fill}}
 \item{\code{angle = 0}}{ - The angle of the image as a numerical value between 0° and 360°.}
@@ -112,28 +154,28 @@ library(ggplot2)
 df <- data.frame(
   a = c(rep(1:3, 3), 1.5, 2.5),
   b = c(sort(rep(1:3, 3), decreasing = TRUE), 2.5, 2.5),
-  player_id = c("660670",
-                "545361",
-                "605141",
-                "571448",
-                "594798",
+  player_id = c("665742",
+                "677594",
+                "592450",
+                "608070",
+                "694973",
                 "518692",
                 "0",
-                "521692",
+                "663728",
                 "120074",
-                "665487",
-                "518934"),
-  player_name = c("Ronald Acuña Jr.",
-                  "Mike Trout",
-                  "Mookie Betts",
-                  "Nolan Arenado",
-                  "Jacob deGrom",
+                "608369",
+                "606466"),
+  player_name = c("Juan Soto",
+                  "Julio Rodríguez",
+                  "Aaron Judge",
+                  "José Ramírez",
+                  "Paul Skenes",
                   "Freddie Freeman",
                   "Non Match",
-                  "Salvador Perez",
+                  "Cal Raleigh",
                   "David Ortiz",
-                  "Fernando Tatis Jr.",
-                  "DJ LeMahieu")
+                  "Corey Seager",
+                  "Ketel Marte")
 )
 
 # set a custom fill colour for one player
@@ -146,17 +188,16 @@ ggplot(df, aes(x = a, y = b)) +
   coord_cartesian(xlim = c(0.75, 3.25), ylim = c(0.7, 3.25)) +
   theme_void()
 
-# apply alpha as constant and use non default na replacement
+# apply alpha as constant
 ggplot(df, aes(x = a, y = b)) +
-  geom_mlb_headshots(aes(player_id = player_id), height = 0.2, alpha = 0.5,
-                     na_headshot_to_logo = FALSE) +
+  geom_mlb_headshots(aes(player_id = player_id), height = 0.2, alpha = 0.5) +
   geom_label(aes(label = player_name), nudge_y = -0.35, alpha = 0.5) +
   coord_cartesian(xlim = c(0.75, 3.25), ylim = c(0.7, 3.25)) +
   theme_void()
 
-# apply colour as an aesthetic
+# apply colour as an aesthetic and use the dot version with colored background
 ggplot(df, aes(x = a, y = b)) +
-  geom_mlb_headshots(aes(player_id = player_id, colour = colour), height = 0.2) +
+  geom_mlb_dot_headshots(aes(player_id = player_id, colour = colour), height = 0.2) +
   geom_label(aes(label = player_name), nudge_y = -0.35, alpha = 0.5) +
   coord_cartesian(xlim = c(0.75, 3.25), ylim = c(0.7, 3.25)) +
   scale_colour_identity() +
